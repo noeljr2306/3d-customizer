@@ -18,30 +18,18 @@ import {
   X,
 } from "lucide-react";
 
-// Icon map for editor tabs
+// ─── Icon Maps ───
 const EditorTabIconMap = {
   colorpicker: Palette,
   filepicker: Upload,
 };
 
-// Icon map for filter tabs
 const FilterTabIconMap = {
   logoShirt: Image,
   stylishShirt: Shirt,
 };
 
-// Icon accent colors per tab for styled active icons
-const EditorTabAccentMap = {
-  colorpicker: "#e85d8a",
-  filepicker: "#4f9ef8",
-};
-
-const FilterTabAccentMap = {
-  logoShirt: "#f59e42",
-  stylishShirt: "#34d399",
-};
-
-// Tab button with active state, styled icons
+// ─── Tab Button ───
 const TabButton = ({
   tab,
   handleClick,
@@ -49,49 +37,44 @@ const TabButton = ({
   isActiveTab = false,
 }) => {
   const IconMap = isFilterTab ? FilterTabIconMap : EditorTabIconMap;
-  const AccentMap = isFilterTab ? FilterTabAccentMap : EditorTabAccentMap;
   const Icon = IconMap[tab.name];
-  const accent = AccentMap[tab.name];
 
   const activeClass = isFilterTab
-    ? isActiveTab
-      ? "activeFilterTab"
-      : ""
-    : isActiveTab
-      ? "activeEditorTab"
-      : "";
+    ? isActiveTab ? "activeFilterTab" : ""
+    : isActiveTab ? "activeEditorTab" : "";
+
+  // Filter tabs show label + icon side by side
+  if (isFilterTab) {
+    return (
+      <button
+        onClick={handleClick}
+        className={`tab-btn ${activeClass}`}
+        title={tab.name}
+      >
+        {Icon && (
+          <Icon
+            size={15}
+            strokeWidth={isActiveTab ? 2.5 : 2}
+          />
+        )}
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>
+          {tab.name === "logoShirt" ? "Logo" : "Full"}
+        </span>
+      </button>
+    );
+  }
 
   return (
     <button
       onClick={handleClick}
       className={`tab-btn ${activeClass}`}
       title={tab.name}
-      style={isActiveTab && accent ? { "--tab-accent": accent } : {}}
     >
       {Icon ? (
-        <span
-          className="tab-icon-wrap"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            background: isActiveTab ? `${accent}22` : "transparent",
-            transition: "background 0.2s ease",
-          }}
-        >
-          <Icon
-            size={isActiveTab ? 19 : 18}
-            strokeWidth={isActiveTab ? 2.2 : 1.8}
-            color={isActiveTab ? accent : "currentColor"}
-            style={{
-              transition: "color 0.15s ease, filter 0.15s ease",
-              filter: isActiveTab ? `drop-shadow(0 0 5px ${accent}88)` : "none",
-            }}
-          />
-        </span>
+        <Icon
+          size={isActiveTab ? 20 : 18}
+          strokeWidth={isActiveTab ? 2.5 : 1.8}
+        />
       ) : (
         <span>{tab.name}</span>
       )}
@@ -99,29 +82,7 @@ const TabButton = ({
   );
 };
 
-// Back button
-const BackButton = ({ handleClick }) => (
-  <button
-    onClick={handleClick}
-    className="flex items-center gap-2 px-4 py-2.5 font-bold text-sm bg-black text-white hover:opacity-80 transition-opacity"
-  >
-    <ArrowLeft size={16} />
-    Go Back
-  </button>
-);
-
-// Download button
-const DownloadButton = () => (
-  <button
-    onClick={downloadCanvasToImage}
-    className="flex items-center gap-2 px-4 py-2.5 font-bold text-sm bg-white border text-black hover:opacity-80 transition-opacity shadow"
-    title="Download"
-  >
-    <Download size={16} />
-  </button>
-);
-
-// Tab panel wrapper with X close button
+// ─── Tab Panel with X close ───
 const TabPanel = ({ children, onClose }) => (
   <div style={{ position: "relative" }}>
     <button
@@ -130,12 +91,35 @@ const TabPanel = ({ children, onClose }) => (
       title="Close"
       aria-label="Close tab"
     >
-      <X size={11} strokeWidth={2.5} />
+      <X size={11} strokeWidth={3} />
     </button>
     {children}
   </div>
 );
 
+// ─── Back Button ───
+const BackButton = ({ handleClick }) => (
+  <button
+    onClick={handleClick}
+    className="neobtn neobtn-dark"
+  >
+    <ArrowLeft size={14} strokeWidth={2.5} />
+    Go Back
+  </button>
+);
+
+// ─── Download Button ───
+const DownloadButton = () => (
+  <button
+    onClick={downloadCanvasToImage}
+    className="neobtn neobtn-light"
+    title="Download"
+  >
+    <Download size={14} strokeWidth={2.5} />
+  </button>
+);
+
+// ─── Main Customizer ───
 const Customizer = () => {
   const snap = useSnapshot(state);
 
@@ -155,25 +139,22 @@ const Customizer = () => {
         content = <ColorPicker />;
         break;
       case "filepicker":
-        content = (
-          <FilePicker file={file} setFile={setFile} readFile={readFile} />
-        );
+        content = <FilePicker file={file} setFile={setFile} readFile={readFile} />;
         break;
       default:
         return null;
     }
 
     return (
-      <TabPanel onClose={() => setActiveEditorTab("")}>{content}</TabPanel>
+      <TabPanel onClose={() => setActiveEditorTab("")}>
+        {content}
+      </TabPanel>
     );
   };
 
-
-
   const handleDecals = (type, result) => {
     const decalType = DecalTypes[type];
-    state[decalType.stateProperty] = result;
-
+    Object.assign(state, { [decalType.stateProperty]: result });
     if (!activeFilterTab[decalType.filterTab]) {
       handleActiveFilterTab(decalType.filterTab);
     }
@@ -182,21 +163,16 @@ const Customizer = () => {
   const handleActiveFilterTab = (tabName) => {
     switch (tabName) {
       case "logoShirt":
-        state.isLogoTexture = !activeFilterTab[tabName];
+        Object.assign(state, { isLogoTexture: !activeFilterTab[tabName] });
         break;
       case "stylishShirt":
-        state.isFullTexture = !activeFilterTab[tabName];
+        Object.assign(state, { isFullTexture: !activeFilterTab[tabName] });
         break;
       default:
-        state.isLogoTexture = true;
-        state.isFullTexture = false;
+        Object.assign(state, { isLogoTexture: true, isFullTexture: false });
         break;
     }
-
-    setActiveFilterTab((prevState) => ({
-      ...prevState,
-      [tabName]: !prevState[tabName],
-    }));
+    setActiveFilterTab((prev) => ({ ...prev, [tabName]: !prev[tabName] }));
   };
 
   const readFile = (type) => {
@@ -210,10 +186,9 @@ const Customizer = () => {
     <AnimatePresence>
       {!snap.intro && (
         <>
-          {/* Left Editor Tabs */}
           <_motion.div
             key="custom"
-            className="absolute top-0 left-8 z-10"
+            className="customizer-left absolute top-0 z-10"
             {...slideAnimation("left")}
           >
             <div className="flex items-center min-h-screen">
@@ -225,7 +200,7 @@ const Customizer = () => {
                     isActiveTab={activeEditorTab === tab.name}
                     handleClick={() =>
                       setActiveEditorTab((prev) =>
-                        prev === tab.name ? "" : tab.name,
+                        prev === tab.name ? "" : tab.name
                       )
                     }
                   />
@@ -235,16 +210,14 @@ const Customizer = () => {
             </div>
           </_motion.div>
 
-          {/* Top-right: Go Back + Download */}
           <_motion.div
-            className="absolute z-10 top-5 right-5 flex gap-2"
+            className="customizer-topright"
             {...fadeAnimation}
           >
             <DownloadButton />
             <BackButton handleClick={() => (state.intro = true)} />
           </_motion.div>
 
-          {/* Bottom Filter Tabs */}
           <_motion.div
             className="filtertabs-container absolute"
             {...slideAnimation("up")}
@@ -266,4 +239,3 @@ const Customizer = () => {
 };
 
 export default Customizer;
-
