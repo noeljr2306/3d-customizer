@@ -116,7 +116,6 @@ const Home = () => {
                   marginTop: 10,
                 }}
               >
-                {/* Tag label */}
                 <span
                   style={{
                     position: "absolute",

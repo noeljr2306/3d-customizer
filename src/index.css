@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&display=swap");
 @import "tailwindcss";
 
-/* ════════════════════════════════════════
-   DESIGN TOKENS
-   ════════════════════════════════════════ */
 :root {
   --black: #0a0a0a;
   --white: #f5f5f0;
@@ -11,7 +8,7 @@
   --border: 2.5px solid #0a0a0a;
   --border-thick: 4px solid #0a0a0a;
 
-  /* Shadows scale down on mobile */
+ 
   --shadow-sm: 2px 2px 0px #0a0a0a;
   --shadow-md: 4px 4px 0px #0a0a0a;
   --shadow-lg: 6px 6px 0px #0a0a0a;
@@ -20,14 +17,14 @@
   --font-display: "Bebas Neue", sans-serif;
   --font-mono: "Space Mono", monospace;
 
-  /* Spacing scale */
+ 
   --gap-xs: 4px;
   --gap-sm: 8px;
   --gap-md: 16px;
   --gap-lg: 24px;
 }
 
-/* Bigger shadows on larger screens */
+
 @media (min-width: 768px) {
   :root {
     --shadow-sm: 3px 3px 0px #0a0a0a;
@@ -37,9 +34,7 @@
   }
 }
 
-/* ════════════════════════════════════════
-   BASE
-   ════════════════════════════════════════ */
+
 *,
 *::before,
 *::after {
@@ -52,17 +47,15 @@ body {
   background: var(--white);
   color: var(--black);
   cursor: crosshair;
-  /* Prevent horizontal scroll on mobile */
+ 
   overflow-x: hidden;
 }
 
-/* ════════════════════════════════════════
-   APP SHELL
-   ════════════════════════════════════════ */
+
 .app {
   position: relative;
   width: 100%;
-  height: 100svh; /* svh for mobile browser chrome awareness */
+  height: 100svh;
   overflow: hidden;
   background-color: var(--white);
   background-image: radial-gradient(
@@ -70,7 +63,7 @@ body {
     rgba(10, 10, 10, 0.18) 1px,
     transparent 1px
   );
-  /* Tighter dot grid on mobile */
+ 
   background-size: 20px 20px;
 }
 
@@ -80,9 +73,7 @@ body {
   }
 }
 
-/* ════════════════════════════════════════
-   HOME PAGE
-   ════════════════════════════════════════ */
+
 .home {
   position: absolute;
   z-index: 10;
@@ -91,10 +82,10 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
 
-  /* Mobile */
+ 
   width: 100%;
   height: auto;
-  padding: 20px 20px 100px; /* bottom pad clears 3D canvas controls */
+  padding: 20px 20px 100px;
   gap: 24px;
 }
 
@@ -130,7 +121,7 @@ body {
   }
 }
 
-/* ─── Headline ─── */
+
 .head-text {
   font-family: var(--font-display);
   color: var(--black);
@@ -138,7 +129,7 @@ body {
   letter-spacing: 0.01em;
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
 
-  /* Mobile: compact */
+ 
   font-size: clamp(3rem, 12vw, 5.5rem);
   line-height: 1.05;
 }
@@ -158,9 +149,7 @@ body {
   }
 }
 
-/* ════════════════════════════════════════
-   DOWNLOAD BUTTON
-   ════════════════════════════════════════ */
+
 .download-btn {
   width: 44px;
   height: 44px;
@@ -198,9 +187,7 @@ body {
   box-shadow: none;
 }
 
-/* ════════════════════════════════════════
-   EDITOR TABS CONTAINER
-   ════════════════════════════════════════ */
+
 .editortabs-container {
   display: flex;
   flex-direction: column;
@@ -212,7 +199,7 @@ body {
   box-shadow: var(--shadow-lg);
   position: relative;
 
-  /* Mobile */
+ 
   width: 52px;
   padding: 10px 0;
   gap: 4px;
@@ -227,7 +214,7 @@ body {
   }
 }
 
-/* Hard corner squares */
+
 .editortabs-container::before,
 .editortabs-container::after {
   content: "";
@@ -265,9 +252,7 @@ body {
   }
 }
 
-/* ════════════════════════════════════════
-   TAB BUTTON BASE
-   ════════════════════════════════════════ */
+
 .tab-btn {
   display: flex;
   justify-content: center;
@@ -284,7 +269,7 @@ body {
     transform 0.08s ease,
     color 0.08s ease;
 
-  /* Mobile */
+ 
   width: 40px;
   height: 40px;
 }
@@ -309,7 +294,7 @@ body {
   box-shadow: none;
 }
 
-/* ─── Active Editor Tab ─── */
+
 .tab-btn.activeEditorTab {
   background: var(--black);
   color: var(--white);
@@ -327,7 +312,7 @@ body {
   animation: iconStamp 0.15s ease forwards;
 }
 
-/* ─── Active Filter Tab ─── */
+
 .tab-btn.activeFilterTab {
   background: var(--black);
   color: var(--white);
@@ -340,9 +325,7 @@ body {
   animation: iconStamp 0.15s ease forwards;
 }
 
-/* ════════════════════════════════════════
-   TAB CLOSE BUTTON
-   ════════════════════════════════════════ */
+
 .tab-close-btn {
   position: absolute;
   top: -10px;
@@ -386,9 +369,7 @@ body {
   box-shadow: none;
 }
 
-/* ════════════════════════════════════════
-   FILTER TABS CONTAINER
-   ════════════════════════════════════════ */
+
 .filtertabs-container {
   position: absolute;
   z-index: 10;
@@ -399,7 +380,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
 
-  /* Mobile: sit closer to bottom edge */
+ 
   bottom: 12px;
   gap: 8px;
   padding: 0 16px;
@@ -458,9 +439,7 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-/* ════════════════════════════════════════
-   FILE PICKER
-   ════════════════════════════════════════ */
+
 .filepicker-container {
   position: absolute;
   left: 100%;
@@ -471,7 +450,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* Mobile */
+ 
   margin-left: 8px;
   padding: 10px;
   width: 160px;
@@ -489,7 +468,7 @@ body {
   }
 }
 
-/* On very small screens, anchor below instead of to the right */
+
 @media (max-width: 400px) {
   .filepicker-container {
     left: 0;
@@ -521,7 +500,7 @@ body {
     transform 0.08s ease,
     box-shadow 0.08s ease;
 
-  /* Mobile */
+ 
   padding: 5px 10px;
   font-size: 9px;
 }
@@ -545,9 +524,7 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-/* ════════════════════════════════════════
-   AI PICKER
-   ════════════════════════════════════════ */
+
 .aipicker-container {
   position: absolute;
   left: 100%;
@@ -558,7 +535,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* Mobile */
+ 
   margin-left: 8px;
   padding: 10px;
   width: 160px;
@@ -615,16 +592,14 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ════════════════════════════════════════
-   COLOR PICKER OVERRIDE
-   ════════════════════════════════════════ */
+
 .sketch-picker {
   background: var(--white) !important;
   box-shadow: var(--shadow-md) !important;
   border: var(--border) !important;
   border-radius: 0 !important;
 
-  /* Mobile: smaller */
+ 
   width: 150px !important;
 }
 
@@ -638,9 +613,7 @@ body {
   display: none !important;
 }
 
-/* ════════════════════════════════════════
-   NEOBRUTAL BUTTON UTILITY
-   ════════════════════════════════════════ */
+
 .neobtn {
   display: inline-flex;
   align-items: center;
@@ -658,7 +631,7 @@ body {
     background 0.08s ease,
     color 0.08s ease;
 
-  /* Mobile */
+ 
   padding: 8px 14px;
   font-size: 9px;
 }
@@ -712,17 +685,15 @@ body {
   box-shadow: none;
 }
 
-/* ════════════════════════════════════════
-   CUSTOMIZER LAYOUT HELPERS
-   ════════════════════════════════════════ */
 
-/* Left panel anchor — tighter on mobile */
+
+
 .customizer-left {
   position: absolute;
   top: 0;
   z-index: 10;
 
-  /* Mobile: flush to left edge */
+ 
   left: 0;
 }
 
@@ -738,14 +709,14 @@ body {
   }
 }
 
-/* Top-right controls — compress on mobile */
+
 .customizer-topright {
   position: absolute;
   z-index: 10;
   display: flex;
   gap: 6px;
 
-  /* Mobile */
+ 
   top: 12px;
   right: 12px;
 }
@@ -765,14 +736,12 @@ body {
   }
 }
 
-/* ════════════════════════════════════════
-   MISC
-   ════════════════════════════════════════ */
+
 input[type="file"] {
   display: none;
 }
 
-/* Touch-friendly tap targets */
+
 @media (hover: none) and (pointer: coarse) {
   .tab-btn {
     width: 44px;
@@ -780,7 +749,7 @@ input[type="file"] {
   }
 
   .tab-btn:hover {
-    /* Disable hover lift on touch — use active instead */
+   
     transform: none;
     box-shadow: none;
     background: transparent;
@@ -811,9 +780,7 @@ input[type="file"] {
   }
 }
 
-/* ════════════════════════════════════════
-   ANIMATIONS
-   ════════════════════════════════════════ */
+
 @keyframes slideInBrut {
   from {
     opacity: 0;

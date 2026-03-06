@@ -18,7 +18,7 @@ import {
   X,
 } from "lucide-react";
 
-// ─── Icon Maps ───
+
 const EditorTabIconMap = {
   colorpicker: Palette,
   filepicker: Upload,
@@ -29,7 +29,7 @@ const FilterTabIconMap = {
   stylishShirt: Shirt,
 };
 
-// ─── Tab Button ───
+
 const TabButton = ({
   tab,
   handleClick,
@@ -43,7 +43,7 @@ const TabButton = ({
     ? isActiveTab ? "activeFilterTab" : ""
     : isActiveTab ? "activeEditorTab" : "";
 
-  // Filter tabs show label + icon side by side
+  
   if (isFilterTab) {
     return (
       <button
@@ -82,7 +82,7 @@ const TabButton = ({
   );
 };
 
-// ─── Tab Panel with X close ───
+
 const TabPanel = ({ children, onClose }) => (
   <div style={{ position: "relative" }}>
     <button
@@ -97,7 +97,7 @@ const TabPanel = ({ children, onClose }) => (
   </div>
 );
 
-// ─── Back Button ───
+
 const BackButton = ({ handleClick }) => (
   <button
     onClick={handleClick}
@@ -108,7 +108,7 @@ const BackButton = ({ handleClick }) => (
   </button>
 );
 
-// ─── Download Button ───
+
 const DownloadButton = () => (
   <button
     onClick={downloadCanvasToImage}
@@ -119,7 +119,7 @@ const DownloadButton = () => (
   </button>
 );
 
-// ─── Main Customizer ───
+
 const Customizer = () => {
   const snap = useSnapshot(state);
 

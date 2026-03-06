@@ -3,7 +3,6 @@ import React from "react";
 const FilePicker = ({ file, setFile, readFile }) => {
   return (
     <div className="filepicker-container">
-      {/* Section title — plain text, not interactive */}
       <p
         style={{
           fontFamily: "var(--font-mono)",
@@ -18,7 +17,6 @@ const FilePicker = ({ file, setFile, readFile }) => {
         Upload Image
       </p>
 
-      {/* Hidden real input */}
       <input
         type="file"
         id="file-upload"
@@ -27,12 +25,10 @@ const FilePicker = ({ file, setFile, readFile }) => {
         style={{ display: "none" }}
       />
 
-      {/* Label acts as the click trigger */}
       <label htmlFor="file-upload" className="filepicker-label">
         Choose File
       </label>
 
-      {/* Preview + Apply once a file is selected */}
       {file && (
         <div
           style={{

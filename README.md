@@ -1,6 +1,8 @@
 # 👕 3D T-Shirt Customizer
 
-Welcome to the **3D T-Shirt Customizer**! This project is a modern web application that brings your fashion ideas to life with real-time 3D customization. 🎨✨
+![Preview](public/preview.png)
+
+Welcome to the **3D T-Shirt Customizer**!
 
 ## 🚀 About The Project
 
